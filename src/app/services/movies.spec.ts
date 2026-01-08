@@ -35,4 +35,18 @@ describe('Movies', () => {
     const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
     expect(req.request.method).toBe('GET');
   });
+
+  it('should handle successful API response', () => {
+    const mockResponse: TmdbMovieResponse = {
+      page: 1,
+      results: [{ id: 1, title: 'Test Movie', release_date: '2024-01-01' }],
+      total_pages: 1,
+      total_results: 1,
+    };
+    service.getMovies().subscribe((response) => {
+      expect(response).toEqual(mockResponse);
+    });
+    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    req.flush(mockResponse);
+  });
 });
