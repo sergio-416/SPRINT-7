@@ -43,3 +43,7 @@ Thumbs.db
 
 # Private learning notes
 LEARNING-NOTES.md
+
+# Environment files with secrets
+src/environments/environment.development.ts
+
