@@ -1,10 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { Observable } from 'rxjs';
-import { TmdbMovieResponse } from '../interfaces/movie';
-
 import { Movies } from './movies';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
+import { TmdbMovieResponse } from '../interfaces/movie';
 
 describe('Movies', () => {
   let service: Movies;
@@ -48,5 +47,18 @@ describe('Movies', () => {
     });
     const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
     req.flush(mockResponse);
+  });
+
+  it('should handle error response', () => {
+    service.getMovies().subscribe({
+      next: () => {
+        throw new Error('should have failed');
+      },
+      error: (error) => {
+        expect(error.status).toBeDefined();
+      },
+    });
+    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
   });
 });
