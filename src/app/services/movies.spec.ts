@@ -3,12 +3,19 @@ import { Observable } from 'rxjs';
 import { TmdbMovieResponse } from '../interfaces/movie';
 
 import { Movies } from './movies';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 describe('Movies', () => {
   let service: Movies;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+    httpTestingController = TestBed.inject(HttpTestingController);
+
     service = TestBed.inject(Movies);
   });
 
@@ -21,5 +28,11 @@ describe('Movies', () => {
     expect(typeof service.getMovies).toBe('function');
     const result = service.getMovies();
     expect(result).toBeInstanceOf(Observable);
+  });
+
+  it('should call correct TMDB endpoint with GET', () => {
+    service.getMovies().subscribe();
+    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    expect(req.request.method).toBe('GET');
   });
 });
