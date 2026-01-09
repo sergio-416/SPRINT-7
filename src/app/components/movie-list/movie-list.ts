@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Movies } from '../../services/movies';
+import { TmdbMovie } from '../../interfaces/movie';
 
 @Component({
   selector: 'app-movie-list',
@@ -10,4 +11,5 @@ import { Movies } from '../../services/movies';
 })
 export class MovieList {
   private readonly moviesService = inject(Movies);
+  readonly movies = signal<TmdbMovie[]>([]);
 }
