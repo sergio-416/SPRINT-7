@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Movies } from '../../services/movies';
-import { TmdbMovie } from '../../interfaces/movie';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-movie-list',
@@ -11,5 +12,8 @@ import { TmdbMovie } from '../../interfaces/movie';
 })
 export class MovieList {
   private readonly moviesService = inject(Movies);
-  readonly movies = signal<TmdbMovie[]>([]);
+  readonly movies = toSignal(
+    this.moviesService.getMovies().pipe(map((response) => response.results)),
+    { initialValue: [] }
+  );
 }
