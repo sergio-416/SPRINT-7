@@ -1,1 +1,6 @@
-<p>movie-list works!</p>
+@for (movie of movies(); track movie.id){
+<div>
+  <h3>{{ movie.title }}</h3>
+  <p>{{ movie.release_date }}</p>
+</div>
+}
