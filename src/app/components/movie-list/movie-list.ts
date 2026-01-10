@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Movies } from '../../services/movies';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
