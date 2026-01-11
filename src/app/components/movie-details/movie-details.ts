@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-movie-details',
@@ -8,5 +9,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetails {
-
+  readonly #route = inject(ActivatedRoute);
+  readonly #movieId = signal(this.#route.snapshot.params['id']);
+  readonly movieId = this.#movieId.asReadonly();
 }

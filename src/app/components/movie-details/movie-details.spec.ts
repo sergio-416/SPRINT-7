@@ -1,6 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MovieDetails } from './movie-details';
+import { ActivatedRoute } from '@angular/router';
+
+const mockActivatedRoute = {
+  snapshot: {
+    params: {
+      id: '123',
+    },
+  },
+};
 
 describe('MovieDetails', () => {
   let component: MovieDetails;
@@ -8,9 +16,9 @@ describe('MovieDetails', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MovieDetails]
-    })
-    .compileComponents();
+      imports: [MovieDetails],
+      providers: [{ provide: ActivatedRoute, useValue: mockActivatedRoute }],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MovieDetails);
     component = fixture.componentInstance;
@@ -19,5 +27,9 @@ describe('MovieDetails', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should read movie ID from route parameters', () => {
+    expect(component.movieId()).toBe('123');
   });
 });
