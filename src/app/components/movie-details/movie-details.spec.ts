@@ -32,4 +32,9 @@ describe('MovieDetails', () => {
   it('should read movie ID from route parameters', () => {
     expect(component.movieId()).toBe('123');
   });
+
+it('it should have movieDetails signal', () => {
+  expect(component.movieDetails).toBeDefined();
+});
+
 });
