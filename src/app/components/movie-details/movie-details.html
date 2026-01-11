@@ -1,1 +1,14 @@
-<p>movie-details works!</p>
+@if (movieDetails(); as movie) {
+<div>
+  <h1>{{ movie.title }}</h1>
+  <p>{{ movie.overview }}</p>
+  <p>{{ movie.release_date }}</p>
+  @for (genre of movie.genres; track genre.id) {
+  <span>{{ genre.name }}</span>
+  }
+  <p>{{ movie.vote_average }}</p>
+  <p>{{ movie.runtime }}</p>
+</div>
+} @else {
+<p>Loading...</p>
+}

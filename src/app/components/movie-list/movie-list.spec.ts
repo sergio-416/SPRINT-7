@@ -21,7 +21,6 @@ describe('MovieList', () => {
     const moviesService = TestBed.inject(Movies);
     getMoviesSpy = vi.spyOn(moviesService, 'getMovies');
     httpTestingController = TestBed.inject(HttpTestingController);
-
     fixture = TestBed.createComponent(MovieList);
     component = fixture.componentInstance;
     await fixture.whenStable();
