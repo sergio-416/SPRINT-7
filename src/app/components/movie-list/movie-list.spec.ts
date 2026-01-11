@@ -31,10 +31,6 @@ describe('MovieList', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should inject Movies service', () => {
-    expect(component['moviesService']).toBeDefined();
-  });
-
   it('should have movies signal', () => {
     expect(component.movies).toBeDefined();
   });

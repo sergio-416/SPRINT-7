@@ -13,5 +13,5 @@ export class MovieDetails {
   readonly #route = inject(ActivatedRoute);
   readonly #movieId = signal(this.#route.snapshot.params['id']);
   readonly movieId = this.#movieId.asReadonly();
-  private readonly moviesService = inject(Movies);
+  readonly #moviesService = inject(Movies);
 }

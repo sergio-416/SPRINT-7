@@ -11,9 +11,9 @@ import { map } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieList {
-  private readonly moviesService = inject(Movies);
+  readonly #moviesService = inject(Movies);
   readonly movies = toSignal(
-    this.moviesService.getMovies().pipe(map((response) => response.results)),
+    this.#moviesService.getMovies().pipe(map((response) => response.results)),
     { initialValue: [] }
   );
 }

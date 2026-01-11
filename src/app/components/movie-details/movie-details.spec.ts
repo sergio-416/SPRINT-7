@@ -32,8 +32,4 @@ describe('MovieDetails', () => {
   it('should read movie ID from route parameters', () => {
     expect(component.movieId()).toBe('123');
   });
-
-  it('should inject Movies service', () => {
-    expect(component['moviesService']).toBeDefined();
-  });
 });
