@@ -2,10 +2,11 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Movies } from '../../services/movies';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-movie-list',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './movie-list.html',
   styleUrl: './movie-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
