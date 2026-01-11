@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Movies } from '../../services/movies';
 
 @Component({
   selector: 'app-movie-details',
@@ -12,4 +13,5 @@ export class MovieDetails {
   readonly #route = inject(ActivatedRoute);
   readonly #movieId = signal(this.#route.snapshot.params['id']);
   readonly movieId = this.#movieId.asReadonly();
+  private readonly moviesService = inject(Movies);
 }
