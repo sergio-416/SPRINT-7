@@ -11,10 +11,15 @@ import { toSignal } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetails {
+  //* Services (injected dependencies)
   readonly #route = inject(ActivatedRoute);
-  readonly #movieId = signal(this.#route.snapshot.params['id']);
-  readonly movieId = this.#movieId.asReadonly();
   readonly #moviesService = inject(Movies);
+
+  //* State signals (private)
+  readonly #movieId = signal(this.#route.snapshot.params['id']);
+
+  //* Public readonly accessors
+  readonly movieId = this.#movieId.asReadonly();
   readonly movieDetails = toSignal(this.#moviesService.getMovieDetails(Number(this.movieId())), {
     initialValue: null,
   });

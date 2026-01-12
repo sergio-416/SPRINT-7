@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Movies } from '../../services/movies';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs/operators';
 import { RouterLink } from '@angular/router';
+import { TmdbMovie } from '../../interfaces/movie';
 
 @Component({
   selector: 'app-movie-list',
@@ -12,13 +11,23 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieList {
+  //* Services (injected dependencies)
   readonly #moviesService = inject(Movies);
-  readonly movies = toSignal(
-    this.#moviesService.getMovies().pipe(map((response) => response.results)),
-    { initialValue: [] }
-  );
+
+  //* State signals (private)
+  readonly #movies = signal<TmdbMovie[]>([]);
   readonly #currentPage = signal(1);
-  readonly currentPage = this.#currentPage.asReadonly();
   readonly #totalPages = signal(0);
+
+  //* Public readonly accessors
+  readonly movies = this.#movies.asReadonly();
+  readonly currentPage = this.#currentPage.asReadonly();
   readonly totalPages = this.#totalPages.asReadonly();
+
+  //* Initialization
+  constructor() {
+    this.#moviesService.getMovies().subscribe((response) => {
+      this.#movies.set(response.results);
+    });
+  }
 }
