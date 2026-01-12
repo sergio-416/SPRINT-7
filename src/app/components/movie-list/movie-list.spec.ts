@@ -104,4 +104,46 @@ describe('MovieList', () => {
     expect(component.totalPages).toBeDefined();
     expect(component.totalPages()).toBe(0);
   });
+
+  it('should load more movies and append to existing list', () => {
+    const page1Movies = [
+      { id: 1, title: 'Movie 1', release_date: '2024-01-01' },
+      { id: 2, title: 'Movie 2', release_date: '2024-01-02' },
+    ];
+    const page2Movies = [
+      { id: 3, title: 'Movie 3', release_date: '2024-01-03' },
+      { id: 4, title: 'Movie 4', release_date: '2024-01-04' },
+    ];
+    const page1Response: TmdbMovieResponse = {
+      page: 1,
+      results: page1Movies,
+      total_pages: 5,
+      total_results: 100,
+    };
+
+    const page2Response: TmdbMovieResponse = {
+      page: 2,
+      results: page2Movies,
+      total_pages: 5,
+      total_results: 100,
+    };
+    fixture.detectChanges();
+
+    const req1 = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
+    req1.flush(page1Response);
+    fixture.detectChanges();
+    component.loadMore();
+    const req2 = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=2'
+    );
+    req2.flush(page2Response);
+    fixture.detectChanges();
+    expect(component.movies().length).toBe(4);
+    expect(component.movies()).toEqual([...page1Movies, ...page2Movies]);
+
+    expect(component.currentPage()).toBe(2);
+    expect(component.totalPages()).toBe(5);
+  });
 });

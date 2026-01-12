@@ -30,4 +30,12 @@ export class MovieList {
       this.#movies.set(response.results);
     });
   }
+  loadMore() {
+    this.#moviesService.getMoviesPage(this.currentPage() + 1).subscribe((response) => {
+      const current = this.#movies();
+      this.#movies.set([...current, ...response.results]);
+      this.#currentPage.set(response.page);
+      this.#totalPages.set(response.total_pages);
+    });
+  }
 }
