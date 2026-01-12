@@ -11,14 +11,22 @@ import { MovieDetails } from '../interfaces/movie-details';
 export class Movies {
   readonly #http = inject(HttpClient);
 
+  #getMoviesFromPage(page: number): Observable<TmdbMovieResponse> {
+    return this.#http.get<TmdbMovieResponse>(
+      `https://api.themoviedb.org/3/discover/movie?page=${page}`,
+      { headers: { Authorization: `Bearer ${environment.tmdbToken}` } }
+    );
+  }
+
   getMovies(): Observable<TmdbMovieResponse> {
-    return this.#http.get<TmdbMovieResponse>('https://api.themoviedb.org/3/discover/movie', {
-      headers: { Authorization: `Bearer ${environment.tmdbToken}` },
-    });
+    return this.#getMoviesFromPage(1);
   }
   getMovieDetails(id: number): Observable<MovieDetails> {
     return this.#http.get<MovieDetails>(`https://api.themoviedb.org/3/movie/${id}`, {
       headers: { Authorization: `Bearer ${environment.tmdbToken}` },
     });
+  }
+  getMoviesPage(page: number): Observable<TmdbMovieResponse> {
+    return this.#getMoviesFromPage(page);
   }
 }

@@ -45,6 +45,7 @@ Thumbs.db
 LEARNING-NOTES.md
 glossary.md
 SESSION-CONTEXT.md
+AGENTS.md
 
 # Environment files with secrets
 src/environments/environment.development.ts

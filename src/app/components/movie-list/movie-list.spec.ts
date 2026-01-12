@@ -54,7 +54,9 @@ describe('MovieList', () => {
       total_results: 2,
     };
     fixture.detectChanges();
-    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
     req.flush(mockResponse);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
@@ -76,7 +78,9 @@ describe('MovieList', () => {
       total_results: 2,
     };
     fixture.detectChanges();
-    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
     req.flush(mockResponse);
     fixture.detectChanges();
     const linkDes = fixture.debugElement.queryAll(By.directive(RouterLink));

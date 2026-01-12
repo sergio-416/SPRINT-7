@@ -34,7 +34,9 @@ describe('Movies', () => {
 
   it('should call correct TMDB endpoint with GET', () => {
     service.getMovies().subscribe();
-    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
     expect(req.request.method).toBe('GET');
   });
 
@@ -48,7 +50,9 @@ describe('Movies', () => {
     service.getMovies().subscribe((response) => {
       expect(response).toEqual(mockResponse);
     });
-    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
     req.flush(mockResponse);
   });
 
@@ -61,8 +65,25 @@ describe('Movies', () => {
         expect(error.status).toBeDefined();
       },
     });
-    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/discover/movie');
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
     req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
+  });
+
+  it('should have getMoviesPage method returning Observable<TmdbMovieResponse>', () => {
+    expect(service.getMoviesPage).toBeDefined();
+    const result = service.getMoviesPage(2);
+    expect(result).toBeInstanceOf(Observable);
+  });
+
+  it('should call correct TMDB endpoint with page parameter', () => {
+    service.getMoviesPage(3).subscribe();
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=3'
+    );
+    expect(req.request.method).toBe('GET');
+    req.flush({ page: 3, results: [], total_pages: 10, total_results: 200 });
   });
 
   //! getMovieDetails() method tests
