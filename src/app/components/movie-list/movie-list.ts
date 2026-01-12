@@ -28,6 +28,7 @@ export class MovieList {
   constructor() {
     this.#moviesService.getMovies().subscribe((response) => {
       this.#movies.set(response.results);
+      this.#totalPages.set(response.total_pages);
     });
   }
   loadMore() {

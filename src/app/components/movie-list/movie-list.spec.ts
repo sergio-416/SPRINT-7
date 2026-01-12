@@ -146,4 +146,42 @@ describe('MovieList', () => {
     expect(component.currentPage()).toBe(2);
     expect(component.totalPages()).toBe(5);
   });
+
+  //!Load More UI tests
+
+  it('should show Load More button when more pages available', () => {
+    const mockResponse: TmdbMovieResponse = {
+      page: 1,
+      results: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01' }],
+      total_pages: 5,
+      total_results: 100,
+    };
+    fixture.detectChanges();
+
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
+    req.flush(mockResponse);
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button).toBeTruthy();
+    expect(button.textContent).toContain('Load More');
+  });
+
+  it('should not show Load More button when no more pages available', () => {
+    const mockResponse: TmdbMovieResponse = {
+      page: 1,
+      results: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01' }],
+      total_pages: 1,
+      total_results: 100,
+    };
+    fixture.detectChanges();
+    const req = httpTestingController.expectOne(
+      'https://api.themoviedb.org/3/discover/movie?page=1'
+    );
+    req.flush(mockResponse);
+    fixture.detectChanges();
+    const button = fixture.nativeElement.querySelector('button');
+    expect(button).toBeNull();
+  });
 });
