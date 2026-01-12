@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Movies } from '../../services/movies';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs/operators';
@@ -17,4 +17,8 @@ export class MovieList {
     this.#moviesService.getMovies().pipe(map((response) => response.results)),
     { initialValue: [] }
   );
+  readonly #currentPage = signal(1);
+  readonly currentPage = this.#currentPage.asReadonly();
+  readonly #totalPages = signal(0);
+  readonly totalPages = this.#totalPages.asReadonly();
 }

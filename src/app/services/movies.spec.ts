@@ -71,6 +71,7 @@ describe('Movies', () => {
     req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
   });
 
+  //! getMoviesPage() method tests
   it('should have getMoviesPage method returning Observable<TmdbMovieResponse>', () => {
     expect(service.getMoviesPage).toBeDefined();
     const result = service.getMoviesPage(2);

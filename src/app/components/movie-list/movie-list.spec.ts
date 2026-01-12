@@ -29,10 +29,12 @@ describe('MovieList', () => {
     await fixture.whenStable();
   });
 
+  //! Component instantiation
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
+  //! Initial state tests
   it('should have movies signal', () => {
     expect(component.movies).toBeDefined();
   });
@@ -42,6 +44,7 @@ describe('MovieList', () => {
     expect(getMoviesSpy).toHaveBeenCalled();
   });
 
+  //! Template rendering tests
   it('should render movie titles and release dates', () => {
     const mockMovies = [
       { id: 1, title: 'Test Movie 1', release_date: '2024-01-01' },
@@ -66,6 +69,7 @@ describe('MovieList', () => {
     expect(compiled.textContent).toContain('2024-02-15');
   });
 
+  //! Navigation tests
   it('should have routerLink for each movie pointing to movie details page', () => {
     const mockMovies = [
       { id: 1, title: 'Test Movie 1', release_date: '2024-01-01' },
@@ -88,5 +92,16 @@ describe('MovieList', () => {
     expect(routerLinks.length).toBe(2);
     expect(routerLinks[0].href).toBe('/movie/1');
     expect(routerLinks[1].href).toBe('/movie/2');
+  });
+
+  //! Pagination tests
+  it('should have a currentPage signal', () => {
+    expect(component.currentPage).toBeDefined();
+    expect(component.currentPage()).toBe(1);
+  });
+
+  it('should have totalPages signal', () => {
+    expect(component.totalPages).toBeDefined();
+    expect(component.totalPages()).toBe(0);
   });
 });
