@@ -43,7 +43,7 @@ describe('Movies', () => {
   it('should handle successful API response', () => {
     const mockResponse: TmdbMovieResponse = {
       page: 1,
-      results: [{ id: 1, title: 'Test Movie', release_date: '2024-01-01' }],
+      results: [{ id: 1, title: 'Test Movie', release_date: '2024-01-01', poster_path: '/test-poster.jpg', vote_average: 8.0 }],
       total_pages: 1,
       total_results: 1,
     };

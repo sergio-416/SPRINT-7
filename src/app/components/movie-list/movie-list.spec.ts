@@ -47,8 +47,8 @@ describe('MovieList', () => {
   //! Template rendering tests
   it('should render movie titles and release dates', () => {
     const mockMovies = [
-      { id: 1, title: 'Test Movie 1', release_date: '2024-01-01' },
-      { id: 2, title: 'Test Movie 2', release_date: '2024-02-15' },
+      { id: 1, title: 'Test Movie 1', release_date: '2024-01-01', poster_path: '/test-poster-1.jpg', vote_average: 7.5 },
+      { id: 2, title: 'Test Movie 2', release_date: '2024-02-15', poster_path: '/test-poster-2.jpg', vote_average: 8.2 },
     ];
     const mockResponse: TmdbMovieResponse = {
       page: 1,
@@ -72,8 +72,8 @@ describe('MovieList', () => {
   //! Navigation tests
   it('should have routerLink for each movie pointing to movie details page', () => {
     const mockMovies = [
-      { id: 1, title: 'Test Movie 1', release_date: '2024-01-01' },
-      { id: 2, title: 'Test Movie 2', release_date: '2024-02-15' },
+      { id: 1, title: 'Test Movie 1', release_date: '2024-01-01', poster_path: '/test-poster-1.jpg', vote_average: 7.5 },
+      { id: 2, title: 'Test Movie 2', release_date: '2024-02-15', poster_path: '/test-poster-2.jpg', vote_average: 8.2 },
     ];
     const mockResponse: TmdbMovieResponse = {
       page: 1,
@@ -107,12 +107,12 @@ describe('MovieList', () => {
 
   it('should load more movies and append to existing list', () => {
     const page1Movies = [
-      { id: 1, title: 'Movie 1', release_date: '2024-01-01' },
-      { id: 2, title: 'Movie 2', release_date: '2024-01-02' },
+      { id: 1, title: 'Movie 1', release_date: '2024-01-01', poster_path: '/poster-1.jpg', vote_average: 7.0 },
+      { id: 2, title: 'Movie 2', release_date: '2024-01-02', poster_path: '/poster-2.jpg', vote_average: 8.0 },
     ];
     const page2Movies = [
-      { id: 3, title: 'Movie 3', release_date: '2024-01-03' },
-      { id: 4, title: 'Movie 4', release_date: '2024-01-04' },
+      { id: 3, title: 'Movie 3', release_date: '2024-01-03', poster_path: '/poster-3.jpg', vote_average: 6.5 },
+      { id: 4, title: 'Movie 4', release_date: '2024-01-04', poster_path: '/poster-4.jpg', vote_average: 9.0 },
     ];
     const page1Response: TmdbMovieResponse = {
       page: 1,
@@ -152,7 +152,7 @@ describe('MovieList', () => {
   it('should show Load More button when more pages available', () => {
     const mockResponse: TmdbMovieResponse = {
       page: 1,
-      results: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01' }],
+      results: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01', poster_path: '/poster.jpg', vote_average: 7.5 }],
       total_pages: 5,
       total_results: 100,
     };
@@ -171,7 +171,7 @@ describe('MovieList', () => {
   it('should not show Load More button when no more pages available', () => {
     const mockResponse: TmdbMovieResponse = {
       page: 1,
-      results: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01' }],
+      results: [{ id: 1, title: 'Movie 1', release_date: '2024-01-01', poster_path: '/poster.jpg', vote_average: 7.5 }],
       total_pages: 1,
       total_results: 100,
     };
