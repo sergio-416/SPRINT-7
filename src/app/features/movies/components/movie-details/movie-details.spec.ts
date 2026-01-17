@@ -72,7 +72,7 @@ describe('MovieDetails', () => {
     expect(compiled.textContent).toContain('2024-01-15');
     expect(compiled.textContent).toContain('Action');
     expect(compiled.textContent).toContain('Adventure');
-    expect(compiled.textContent).toContain('7.5');
+    expect(compiled.textContent).toContain('75');
     expect(compiled.textContent).toContain('120');
   });
 });

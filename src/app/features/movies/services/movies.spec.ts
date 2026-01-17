@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { Movies } from './movies';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
-import { TmdbMovieResponse } from '../interfaces/movie';
-import { MovieDetails } from '../interfaces/movie-details';
+import { TmdbMovieResponse } from '../../../interfaces/movie';
+import { MovieDetails } from '../../../interfaces/movie-details';
 
 describe('Movies', () => {
   let service: Movies;

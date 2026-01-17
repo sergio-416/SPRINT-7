@@ -1,9 +1,9 @@
-import { environment } from '../../environments/environment.development';
+import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TmdbMovieResponse } from '../interfaces/movie';
-import { MovieDetails } from '../interfaces/movie-details';
+import { TmdbMovieResponse } from '../../../interfaces/movie';
+import { MovieDetails } from '../../../interfaces/movie-details';
 
 @Injectable({
   providedIn: 'root',

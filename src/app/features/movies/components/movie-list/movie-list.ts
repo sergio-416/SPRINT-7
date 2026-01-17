@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Movies } from '../../services/movies';
 import { RouterLink } from '@angular/router';
-import { TmdbMovie } from '../../interfaces/movie';
+import { TmdbMovie } from '../../../../interfaces/movie';
 
 @Component({
   selector: 'app-movie-list',
