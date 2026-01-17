@@ -24,9 +24,14 @@
     }
   </div>
 
-  @if (currentPage() < totalPages()) {
-  <button (click)="loadMore()" class="mt-4 px-4 py-2 bg-blue-500 text-white rounded">
-    Load More
-  </button>
-  }
+@if (currentPage() < totalPages()) {
+  <div class="flex justify-center mt-8">
+    <button
+      (click)="loadMore()"
+      class="px-6 py-3 bg-tmdb-cyan hover:bg-tmdb-cyan/90 text-white font-tmdb font-semibold rounded-lg transition-all shadow-card hover:shadow-card-hover active:scale-95 active:shadow-sm"
+    >
+      Load More
+    </button>
+  </div>
+}
 </div>
