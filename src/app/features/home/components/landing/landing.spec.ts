@@ -18,10 +18,6 @@ describe('Landing', () => {
     await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
   it('should display welcome message', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;

@@ -33,22 +33,10 @@ describe('MovieDetails', () => {
     await fixture.whenStable();
   });
 
-  //! Component instantiation
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-
-  //! Route parameter handling tests
   it('should read movie ID from route parameters', () => {
     expect(component.movieId()).toBe('123');
   });
 
-  //! Signal state tests
-  it('it should have movieDetails signal', () => {
-    expect(component.movieDetails).toBeDefined();
-  });
-
-  //! Template rendering tests
   it('should render movie details when data is loaded', () => {
     const mockMovieDetails = {
       id: 123,

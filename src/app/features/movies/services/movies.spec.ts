@@ -19,15 +19,7 @@ describe('Movies', () => {
     service = TestBed.inject(Movies);
   });
 
-  //! Service instantiation
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-
-  //! getMovies() method tests
-  it('should have getMovies method that returns Observable<TmdbMovieResponse>', () => {
-    expect(service.getMovies).toBeDefined();
-    expect(typeof service.getMovies).toBe('function');
+  it('should return Observable when calling getMovies', () => {
     const result = service.getMovies();
     expect(result).toBeInstanceOf(Observable);
   });
@@ -71,9 +63,7 @@ describe('Movies', () => {
     req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
   });
 
-  //! getMoviesPage() method tests
-  it('should have getMoviesPage method returning Observable<TmdbMovieResponse>', () => {
-    expect(service.getMoviesPage).toBeDefined();
+  it('should return Observable when calling getMoviesPage', () => {
     const result = service.getMoviesPage(2);
     expect(result).toBeInstanceOf(Observable);
   });
@@ -87,10 +77,7 @@ describe('Movies', () => {
     req.flush({ page: 3, results: [], total_pages: 10, total_results: 200 });
   });
 
-  //! getMovieDetails() method tests
-  it('should have getMovieDetails method that returns Observable<MovieDetails>', () => {
-    expect(service.getMovieDetails).toBeDefined();
-    expect(typeof service.getMovieDetails).toBe('function');
+  it('should return Observable when calling getMovieDetails', () => {
     const result = service.getMovieDetails(1);
     expect(result).toBeInstanceOf(Observable);
   });
