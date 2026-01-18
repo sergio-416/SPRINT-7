@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { Header } from './shared/components/header/header';
 
 @Component({
@@ -9,5 +9,7 @@ import { Header } from './shared/components/header/header';
   styleUrl: './app.css',
 })
 export class App {
-  protected readonly title = signal('SPRINT-7');
+  protected readonly title = signal('MDB7');
+  readonly #router = inject(Router);
+  readonly showHeader = signal(this.#router.url !== '/');
 }
