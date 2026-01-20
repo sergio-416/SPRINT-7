@@ -1,6 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { Header } from './shared/components/header/header';
+import { filter, map } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +11,15 @@ import { Header } from './shared/components/header/header';
   styleUrl: './app.css',
 })
 export class App {
+
   protected readonly title = signal('MDB7');
   readonly #router = inject(Router);
-  readonly showHeader = signal(this.#router.url !== '/');
+  readonly showHeader = toSignal(
+    this.#router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      map(event => event.url !== '/')
+    ),
+    { initialValue: this.#router.url !== '/' }
+  );
 }
+
