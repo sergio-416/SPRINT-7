@@ -36,4 +36,19 @@ describe('Login', () => {
     expect(component.loginForm.email).toBeDefined();
     expect(component.loginForm.password).toBeDefined();
   });
+
+  it('should display validation error when email is invalid and touched', () => {
+    fixture.detectChanges();
+
+    const emailInput = fixture.nativeElement.querySelector('input[type="email"]');
+    emailInput.focus();
+    emailInput.blur();
+
+    fixture.detectChanges();
+
+    const errorMessage = fixture.nativeElement.querySelector('.error');
+    expect(errorMessage).toBeTruthy();
+    expect(errorMessage.textContent).toContain('Email is required');
+  });
+
 });
