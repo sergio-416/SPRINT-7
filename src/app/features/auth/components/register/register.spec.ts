@@ -10,14 +10,24 @@ describe('Register', () => {
     await TestBed.configureTestingModule({
       imports: [Register]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(Register);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should render registration form with email, password, and confirm password inputs', () => {
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement;
+
+    const emailInput = compiled.querySelector('input[type="email"]');
+    const passwordInput = compiled.querySelector('input[type="password"]');
+    const confirmPasswordInput = compiled.querySelectorAll('input[type="password"]')[1];
+
+    expect(emailInput).toBeTruthy();
+    expect(passwordInput).toBeTruthy();
+    expect(confirmPasswordInput).toBeTruthy();
   });
+
 });

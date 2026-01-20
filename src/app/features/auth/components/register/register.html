@@ -1,1 +1,50 @@
-<p>register works!</p>
+<div class="min-h-screen flex items-center justify-center bg-gray-50">
+  <div class="bg-white p-8 rounded-lg shadow-2xl w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-tmdb-navy">Register</h2>
+
+    <form (submit)="onSubmit($event)">
+      <div class="mb-4">
+        <label for="email" class="block text-sm font-medium mb-2">Email</label>
+        <input type="email" id="email" [formField]="registerForm.email"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tmdb-cyan" />
+        @if (registerForm.email().touched() && registerForm.email().invalid()) {
+        <span class="error">
+          {{ registerForm.email().errors()[0].message }}
+        </span>
+        }
+      </div>
+
+      <div class="mb-6">
+        <label for="password" class="block text-sm font-medium mb-2">Password</label>
+        <input type="password" id="password" [formField]="registerForm.password"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tmdb-cyan" />
+
+        @if (registerForm.password().touched() && registerForm.password().invalid()) {
+        <span class="error text-red-600 text-sm mt-1">
+          {{ registerForm.password().errors()[0].message }}
+        </span>
+        }
+      </div>
+      <div class="mb-6">
+        <label for="confirmPassword" class="block text-sm font-medium mb-2">Confirm Password</label>
+        <input type="password" id="confirmPassword" [formField]="registerForm.confirmPassword"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tmdb-cyan" />
+        @if (registerForm.confirmPassword().touched() && registerForm.confirmPassword().invalid()) {
+        <span class="error text-red-600 text-sm mt-1">
+          {{ registerForm.confirmPassword().errors()[0].message }}
+        </span>
+        }
+      </div>
+
+      @if (authError()) {
+      <div class="auth-error bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        {{ authError() }}
+      </div>
+      }
+      <button type="submit"
+        class="w-full bg-tmdb-cyan text-white py-2 px-4 rounded-md hover:opacity-90 transition-opacity">
+        Create Account
+      </button>
+    </form>
+  </div>
+</div>
