@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Login } from './login';
+import { Auth } from '../../services/auth';
 
 describe('Login', () => {
   let component: Login;
@@ -51,4 +51,18 @@ describe('Login', () => {
     expect(errorMessage.textContent).toContain('Email is required');
   });
 
+
+  it('should display auth error when sign in fails', async () => {
+    fixture.detectChanges();
+    const authService = TestBed.inject(Auth);
+    vi.spyOn(authService, 'signIn').mockRejectedValue(new Error('Invalid credentials'));
+
+    component.loginModel.set({ email: 'test@test.com', password: 'wrong' });
+
+    await component.onSubmit(new Event('submit'));
+    fixture.detectChanges();
+
+    const authError = fixture.nativeElement.querySelector('.auth-error');
+    expect(authError).toBeTruthy();
+  });
 });

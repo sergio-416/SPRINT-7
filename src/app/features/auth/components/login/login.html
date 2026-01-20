@@ -24,7 +24,11 @@
         </span>
         }
       </div>
-
+      @if (authError()) {
+      <div class="auth-error bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+        {{ authError() }}
+      </div>
+      }
       <button type="submit"
         class="w-full bg-tmdb-cyan text-white py-2 px-4 rounded-md hover:opacity-90 transition-opacity">
         Sign In

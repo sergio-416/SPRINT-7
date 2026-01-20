@@ -18,11 +18,16 @@ export class Login {
     email(schemaPath.email, { message: 'Invalid email address' });
     required(schemaPath.password, { message: 'Password is required' });
   });
+  authError = signal<string | null>(null);
   async onSubmit(event: Event) {
     event.preventDefault();
     if (this.loginForm().valid()) {
       const credentials = this.loginModel();
-      await this.#auth.signIn(credentials.email, credentials.password);
+      try {
+        await this.#auth.signIn(credentials.email, credentials.password);
+        this.authError.set(null);
+      } catch (error) { this.authError.set('Invalid email or password'); }
     }
   }
 }
+
