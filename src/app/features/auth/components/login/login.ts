@@ -3,6 +3,7 @@ import { LoginData } from '../../interfaces/login-data';
 import { form, FormField, required } from '@angular/forms/signals';
 import { Auth } from '../../services/auth';
 import { enhancedEmail } from '../../validators/custom-validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,14 +13,15 @@ import { enhancedEmail } from '../../validators/custom-validators';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {
+  readonly #router = inject(Router);
   readonly #auth = inject(Auth);
-  loginModel = signal<LoginData>({ email: '', password: '' });
-  loginForm = form(this.loginModel, (schemaPath) => {
+  readonly loginModel = signal<LoginData>({ email: '', password: '' });
+  readonly loginForm = form(this.loginModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
     enhancedEmail(schemaPath.email, { message: 'Enter a valid email address' });
     required(schemaPath.password, { message: 'Password is required' });
   });
-  authError = signal<string | null>(null);
+  readonly authError = signal<string | null>(null);
   async onSubmit(event: Event) {
     event.preventDefault();
     if (this.loginForm().valid()) {
@@ -27,6 +29,7 @@ export class Login {
       try {
         await this.#auth.signIn(credentials.email, credentials.password);
         this.authError.set(null);
+        this.#router.navigate(['/movies']);
       } catch (error) { this.authError.set('Invalid email or password'); }
     }
   }

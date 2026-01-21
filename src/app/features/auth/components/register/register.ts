@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { RegisterData } from '../../interfaces/register-data';
-import { email, form, FormField, minLength, required } from '@angular/forms/signals';
+import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { Auth } from '../../services/auth';
 import { enhancedEmail, passwordsMatch } from '../../validators/custom-validators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -12,12 +13,14 @@ import { enhancedEmail, passwordsMatch } from '../../validators/custom-validator
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register {
-  registerModel = signal<RegisterData>({
+  readonly #auth = inject(Auth);
+  readonly #router = inject(Router);
+  readonly registerModel = signal<RegisterData>({
     email: '',
     password: '',
     confirmPassword: ''
   })
-  registerForm = form(this.registerModel, (schemaPath) => {
+  readonly registerForm = form(this.registerModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
     enhancedEmail(schemaPath.email, { message: 'Enter a valid email address' });
     required(schemaPath.password, { message: 'Password is required' });
@@ -25,9 +28,7 @@ export class Register {
     required(schemaPath.confirmPassword, { message: 'Please confirm your password' });
     passwordsMatch(schemaPath.password, schemaPath.confirmPassword, { message: 'Passwords must match' });
   })
-
-  readonly #auth = inject(Auth);
-  authError = signal<string | null>(null);
+  readonly authError = signal<string | null>(null);
   async onSubmit(event: Event) {
     event.preventDefault();
     if (this.registerForm().valid()) {
@@ -35,6 +36,7 @@ export class Register {
       try {
         await this.#auth.signUp(credentials.email, credentials.password);
         this.authError.set(null);
+        this.#router.navigate(['/movies']);
       } catch (error) {
         this.authError.set('Registration failed');
       }

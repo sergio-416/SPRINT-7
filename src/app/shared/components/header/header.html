@@ -26,7 +26,11 @@
         Register
       </a>
       } @else {
-      <span class="text-tmdb-cyan font-tmdb">Welcome!</span>
+      <span class="text-tmdb-cyan font-tmdb">Welcome, {{ currentUser()?.email }}</span>
+      <span class="text-gray-500">|</span>
+      <button (click)="signOut()" class="hover:text-tmdb-cyan transition-colors font-tmdb">
+        Sign Out
+      </button>
       }
     </div>
   </div>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { Auth } from '../../../features/auth/services/auth';
 
 @Component({
@@ -11,5 +11,11 @@ import { Auth } from '../../../features/auth/services/auth';
 })
 export class Header {
   readonly #auth = inject(Auth);
+  readonly #router = inject(Router);
   protected readonly currentUser = this.#auth.currentUser;
+
+  async signOut() {
+    await this.#auth.signOut();
+    this.#router.navigate(['/login']);
+  }
 }
