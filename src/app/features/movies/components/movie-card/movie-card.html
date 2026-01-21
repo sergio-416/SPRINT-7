@@ -1,0 +1,26 @@
+<a
+  [routerLink]="['/movie', movie().id]"
+  class="block transition hover:shadow-card-hover"
+  [attr.aria-label]="'View details for ' + movie().title"
+>
+  <div class="relative">
+    <img
+      [src]="movie().poster_path | tmdbImage: posterSize"
+      [alt]="movie().title + ' poster'"
+      class="w-full aspect-2/3 object-cover rounded-[--radius-card]"
+    />
+
+    <div
+      class="absolute bottom-2 left-2 bg-tmdb-navy text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-sm shadow-card"
+      role="img"
+      [attr.aria-label]="'User rating: ' + (movie().vote_average | votePercentage)"
+    >
+      {{ movie().vote_average | votePercentage }}
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <h3 class="font-bold text-base">{{ movie().title }}</h3>
+    <p class="text-gray-600 text-sm mt-1">{{ movie().release_date }}</p>
+  </div>
+</a>

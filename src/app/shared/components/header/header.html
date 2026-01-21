@@ -1,0 +1,37 @@
+<header class="bg-tmdb-navy text-white">
+  <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <a routerLink="/movies"
+        class="text-tmdb-cyan font-tmdb font-bold text-2xl hover:opacity-80 transition-opacity cursor-pointer">
+        MDB7
+      </a>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-6 font-tmdb">
+      <a routerLink="/movies" routerLinkActive="text-tmdb-cyan" class="hover:text-tmdb-cyan transition-colors">
+        Movies
+      </a>
+      <a class="text-gray-500 cursor-not-allowed">TV Shows</a>
+      <a class="text-gray-500 cursor-not-allowed">People</a>
+    </nav>
+
+    <div class="flex items-center gap-4">
+      @if (!currentUser()) {
+      <a routerLink="/login" routerLinkActive="text-tmdb-cyan" class="hover:text-tmdb-cyan transition-colors font-tmdb">
+        Login
+      </a>
+      <span class="text-gray-500">|</span>
+      <a routerLink="/register" routerLinkActive="text-tmdb-cyan"
+        class="hover:text-tmdb-cyan transition-colors font-tmdb">
+        Register
+      </a>
+      } @else {
+      <span class="text-tmdb-cyan font-tmdb">Welcome, {{ currentUser()?.email }}</span>
+      <span class="text-gray-500">|</span>
+      <button (click)="signOut()" class="hover:text-tmdb-cyan transition-colors font-tmdb">
+        Sign Out
+      </button>
+      }
+    </div>
+  </div>
+</header>

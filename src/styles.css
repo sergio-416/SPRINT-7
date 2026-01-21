@@ -1,1 +1,24 @@
 @import 'tailwindcss';
+
+@theme {
+  --color-tmdb-navy: #032541;
+  --color-tmdb-cyan: #01b4e4;
+
+  --font-tmdb: 'Source Sans 3', sans-serif;
+
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.2);
+  --radius-card: 0.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

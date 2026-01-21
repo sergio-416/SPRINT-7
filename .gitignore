@@ -40,3 +40,14 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
+
+# Private learning notes
+LEARNING-NOTES.md
+glossary.md
+SESSION-CONTEXT.md
+AGENTS.md
+
+# Environment files with secrets
+src/environments/environment.development.ts
+
+AGENTS.md

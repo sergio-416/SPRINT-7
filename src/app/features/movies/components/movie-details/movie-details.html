@@ -1,0 +1,55 @@
+@if (movieDetails(); as movie) {
+<main>
+  <div class="relative h-[500px] bg-cover bg-center"
+    [style.background-image]="'url(' + (movie.backdrop_path | tmdbImage: backdropSize) + ')'">
+    <div class="absolute inset-0 bg-linear-to-t from-black/80 to-black/40"></div>
+
+    <div class="relative z-10 container mx-auto px-4 h-full flex items-end pb-8">
+      <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-8 items-end">
+        <img [src]="movie.poster_path | tmdbImage: posterSize" [alt]="movie.title + ' poster'"
+          class="w-64 rounded-[--radius-card] shadow-card-hover" />
+
+        <div class="text-white space-y-4">
+          <h1 class="font-tmdb font-bold text-5xl">{{ movie.title }}</h1>
+
+          @if (movie.tagline) {
+          <p class="text-xl italic text-gray-300">{{ movie.tagline }}</p>
+          }
+          <div class="flex items-center gap-6 mt-4">
+            <span class="text-lg">{{ movie.release_date }}</span>
+            <span class="text-gray-400">•</span>
+            <span class="text-lg">{{ movie.runtime }} min</span>
+            <div class="flex items-center gap-2">
+              <div
+                class="bg-tmdb-navy text-white rounded-full w-14 h-14 flex items-center justify-center font-bold shadow-card"
+                role="img"
+                [attr.aria-label]="'User rating: ' + (movie.vote_average | votePercentage)"
+              >
+                {{ movie.vote_average | votePercentage }}
+              </div>
+              <span class="text-sm text-gray-300">User<br />Score</span>
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-2 mt-4">
+            @for (genre of movie.genres; track genre.id) {
+            <span class="px-3 py-1 border border-white/30 rounded-full text-sm">
+              {{ genre.name }}
+            </span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mx-auto px-4 py-12">
+    <h2 class="font-tmdb font-bold text-3xl mb-4">Overview</h2>
+    <p class="text-lg text-gray-700 leading-relaxed max-w-4xl">
+      {{ movie.overview }}
+    </p>
+  </div>
+</main>
+} @else {
+<main>
+  <p>Loading...</p>
+</main>
+}
