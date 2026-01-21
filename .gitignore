@@ -50,3 +50,4 @@ AGENTS.md
 # Environment files with secrets
 src/environments/environment.development.ts
 
+AGENTS.md
