@@ -3,7 +3,7 @@ import { RegisterData } from '../../interfaces/register-data';
 import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { Auth } from '../../services/auth';
 import { enhancedEmail, passwordsMatch } from '../../validators/custom-validators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,11 +15,12 @@ import { Router } from '@angular/router';
 export class Register {
   readonly #auth = inject(Auth);
   readonly #router = inject(Router);
+  readonly #route = inject(ActivatedRoute);
   readonly registerModel = signal<RegisterData>({
     email: '',
     password: '',
-    confirmPassword: ''
-  })
+    confirmPassword: '',
+  });
   readonly registerForm = form(this.registerModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
     enhancedEmail(schemaPath.email, { message: 'Enter a valid email address' });
@@ -27,7 +28,7 @@ export class Register {
     minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters' });
     required(schemaPath.confirmPassword, { message: 'Please confirm your password' });
     passwordsMatch(schemaPath.password, schemaPath.confirmPassword, { message: 'Passwords must match' });
-  })
+  });
   readonly authError = signal<string | null>(null);
   async onSubmit(event: Event) {
     event.preventDefault();
@@ -36,7 +37,8 @@ export class Register {
       try {
         await this.#auth.signUp(credentials.email, credentials.password);
         this.authError.set(null);
-        this.#router.navigate(['/movies']);
+        const returnUrl = this.#route.snapshot.queryParams['returnUrl'] || '/movies';
+        this.#router.navigateByUrl(returnUrl);
       } catch (error) {
         this.authError.set('Registration failed');
       }
