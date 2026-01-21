@@ -5,6 +5,7 @@ import { Landing } from './features/home/components/landing/landing';
 import { Login } from './features/auth/components/login/login';
 import { Register } from './features/auth/components/register/register';
 import { authGuard } from './features/auth/guards/auth-guard';
+import { ActorDetails } from './features/actors/components/actor-details/actor-details';
 
 export const routes: Routes = [
   {
@@ -27,6 +28,11 @@ export const routes: Routes = [
   {
     path: 'movie/:id',
     component: MovieDetails,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'actor/:id',
+    component: ActorDetails,
     canActivate: [authGuard],
   },
   { path: '**', redirectTo: '' },
