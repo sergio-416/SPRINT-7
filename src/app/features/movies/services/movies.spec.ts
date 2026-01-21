@@ -5,6 +5,7 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 import { provideHttpClient } from '@angular/common/http';
 import { TmdbMovieResponse } from '../interfaces/movie';
 import { MovieDetails } from '../interfaces/movie-details';
+import { MovieCredits } from '../interfaces/movie-credits';
 
 describe('Movies', () => {
   let service: Movies;
@@ -136,4 +137,44 @@ describe('Movies', () => {
     const req = httpTestingController.expectOne('https://api.themoviedb.org/3/movie/1');
     req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
   });
+
+  it('should return Observable when calling getMovieCredits', () => {
+    const result = service.getMovieCredits(123);
+    expect(result).toBeInstanceOf(Observable);
+  });
+
+  it('should call correct TMDB endpoint for movie credits', () => {
+    service.getMovieCredits(123).subscribe();
+    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/movie/123/credits');
+    expect(req.request.method).toBe('GET');
+  });
+
+  it('should handle successful movie credits response', () => {
+    const mockCredits: MovieCredits = {
+      id: 123,
+      cast: [
+        { id: 1, name: 'John Doe', character: 'Hero', profile_path: '/john.jpg', order: 0 },
+        { id: 2, name: 'Jane Smith', character: 'Villain', profile_path: '/jane.jpg', order: 1 },
+      ],
+    };
+    service.getMovieCredits(123).subscribe((response) => {
+      expect(response).toEqual(mockCredits);
+    });
+    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/movie/123/credits');
+    req.flush(mockCredits);
+  });
+
+  it('should handle error response for movie credits', () => {
+    service.getMovieCredits(123).subscribe({
+      next: () => {
+        throw new Error('should have failed');
+      },
+      error: (error) => {
+        expect(error.status).toBeDefined();
+      },
+    });
+    const req = httpTestingController.expectOne('https://api.themoviedb.org/3/movie/123/credits');
+    req.error(new ProgressEvent('error'), { status: 404, statusText: 'Not Found' });
+  });
+
 });

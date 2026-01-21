@@ -1,15 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActorDetails } from './actor-details';
+const mockActivatedRoute = {
+  snapshot: {
+    params: {
+      id: '123',
+    },
+  },
+};
 describe('ActorDetails', () => {
   let fixture: ComponentFixture<ActorDetails>;
   let httpTestingController: HttpTestingController;
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ActorDetails],
-      providers: [provideRouter([]), provideHttpClient(), provideHttpClientTesting()],
+      providers: [
+        { provide: ActivatedRoute, useValue: mockActivatedRoute },
+        provideHttpClient(),
+        provideHttpClientTesting(),
+      ],
     }).compileComponents();
     fixture = TestBed.createComponent(ActorDetails);
     httpTestingController = TestBed.inject(HttpTestingController);
@@ -25,7 +36,6 @@ describe('ActorDetails', () => {
       popularity: 50,
       known_for_department: 'Acting',
     };
-    fixture.componentRef.setInput('actorId', '123');
     fixture.detectChanges();
     const req = httpTestingController.expectOne('https://api.themoviedb.org/3/person/123');
     req.flush(mockActor);
@@ -52,7 +62,6 @@ describe('ActorDetails', () => {
         { id: 2, title: 'Movie 2', poster_path: '/p2.jpg', release_date: '2023-02-01', vote_average: 8.0 },
       ],
     };
-    fixture.componentRef.setInput('actorId', '123');
     fixture.detectChanges();
     const actorReq = httpTestingController.expectOne('https://api.themoviedb.org/3/person/123');
     actorReq.flush(mockActor);
