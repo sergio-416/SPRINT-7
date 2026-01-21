@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { RegisterData } from '../../interfaces/register-data';
 import { email, form, FormField, minLength, required } from '@angular/forms/signals';
 import { Auth } from '../../services/auth';
+import { enhancedEmail, passwordsMatch } from '../../validators/custom-validators';
 
 @Component({
   selector: 'app-register',
@@ -18,10 +19,11 @@ export class Register {
   })
   registerForm = form(this.registerModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
-    email(schemaPath.email, { message: 'Enter a valid email address' });
+    enhancedEmail(schemaPath.email, { message: 'Enter a valid email address' });
     required(schemaPath.password, { message: 'Password is required' });
     minLength(schemaPath.password, 8, { message: 'Password must be at least 8 characters' });
     required(schemaPath.confirmPassword, { message: 'Please confirm your password' });
+    passwordsMatch(schemaPath.password, schemaPath.confirmPassword, { message: 'Passwords must match' });
   })
 
   readonly #auth = inject(Auth);

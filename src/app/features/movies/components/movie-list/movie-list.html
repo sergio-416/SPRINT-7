@@ -3,15 +3,11 @@
     @for (movie of movies(); track movie.id){
     <a [routerLink]="['/movie', movie.id]" class="block transition hover:shadow-card-hover">
       <div class="relative">
-        <img
-          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-          [alt]="movie.title"
-          class="w-full aspect-2/3 object-cover rounded-[--radius-card]"
-        />
+        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title"
+          class="w-full aspect-2/3 object-cover rounded-[--radius-card]" />
 
         <div
-          class="absolute bottom-2 left-2 bg-tmdb-navy text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-sm shadow-card"
-        >
+          class="absolute bottom-2 left-2 bg-tmdb-navy text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-sm shadow-card">
           {{ (movie.vote_average * 10).toFixed(0) }}%
         </div>
       </div>
@@ -24,14 +20,11 @@
     }
   </div>
 
-@if (currentPage() < totalPages()) {
-  <div class="flex justify-center mt-8">
-    <button
-      (click)="loadMore()"
-      class="px-6 py-3 bg-tmdb-cyan hover:bg-tmdb-cyan/90 text-white font-tmdb font-semibold rounded-lg transition-all shadow-card hover:shadow-card-hover active:scale-95 active:shadow-sm"
-    >
+  @if (currentPage() < totalPages()) { <div class="flex justify-center mt-8">
+    <button (click)="loadMore()"
+      class="px-6 py-3 bg-tmdb-cyan hover:bg-tmdb-cyan/90 text-white font-tmdb font-semibold rounded-lg transition-all shadow-card hover:shadow-card-hover active:scale-95 active:shadow-sm">
       Load More
     </button>
-  </div>
+</div>
 }
 </div>

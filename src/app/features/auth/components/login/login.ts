@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { LoginData } from '../../interfaces/login-data';
-import { email, form, FormField, required } from '@angular/forms/signals';
+import { form, FormField, required } from '@angular/forms/signals';
 import { Auth } from '../../services/auth';
+import { enhancedEmail } from '../../validators/custom-validators';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ export class Login {
   loginModel = signal<LoginData>({ email: '', password: '' });
   loginForm = form(this.loginModel, (schemaPath) => {
     required(schemaPath.email, { message: 'Email is required' });
-    email(schemaPath.email, { message: 'Invalid email address' });
+    enhancedEmail(schemaPath.email, { message: 'Enter a valid email address' });
     required(schemaPath.password, { message: 'Password is required' });
   });
   authError = signal<string | null>(null);

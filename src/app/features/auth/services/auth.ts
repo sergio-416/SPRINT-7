@@ -1,30 +1,41 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { User } from '@supabase/supabase-js';
-import { Supabase } from '../../../core/services/supabase';
+import { Firebase } from '../../../core/services/firebase';
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut as firebaseSignOut,
+  onAuthStateChanged,
+  User as FirebaseUser,
+} from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  readonly #supabase = inject(Supabase);
-  currentUser = signal<User | null>(null);
-  readonly #authSubscription = this.#initAuthListener();
+  readonly #firebase = inject(Firebase);
+  readonly #auth = this.#firebase.getAuth();
+  readonly #currentUser = signal<FirebaseUser | null>(null);
+  readonly currentUser = this.#currentUser.asReadonly();
+
+  constructor() {
+    this.#initAuthListener();
+  }
 
   #initAuthListener() {
-    return this.#supabase.getClient().auth.onAuthStateChange((event, session) => {
-      this.currentUser.set(session?.user ?? null);
+    return onAuthStateChanged(this.#auth, (user) => {
+      this.#currentUser.set(user);
     });
   }
-  
+
   async signIn(email: string, password: string) {
-    return this.#supabase.getClient().auth.signInWithPassword({ email, password });
+    return signInWithEmailAndPassword(this.#auth, email, password);
   }
 
   async signUp(email: string, password: string) {
-    return this.#supabase.getClient().auth.signUp({ email, password });
+    return createUserWithEmailAndPassword(this.#auth, email, password);
   }
 
   async signOut() {
-    return this.#supabase.getClient().auth.signOut();
+    return firebaseSignOut(this.#auth);
   }
 }

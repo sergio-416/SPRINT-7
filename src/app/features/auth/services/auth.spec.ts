@@ -15,27 +15,24 @@ describe('Auth', () => {
     expect(service.currentUser()).toBeNull();
   });
 
-  it('should call Supabase signInWithPassword when signing in', async () => {
-    const email = 'test@example.com';
+  it('should attempt sign in with email and password', async () => {
+    const email = 'nonexistent@example.com';
     const password = 'password123';
 
-    const result = await service.signIn(email, password);
-
-    expect(result).toBeDefined();
+    await expect(service.signIn(email, password)).rejects.toThrow('auth/invalid-credential');
   });
 
-  it('should call Supabase signUp when registering', async () => {
-    const email = 'newuser@example.com';
+  it('should sign up with email and password', async () => {
+    const email = `user${Date.now()}@example.com`;
     const password = 'password123';
 
     const result = await service.signUp(email, password);
 
     expect(result).toBeDefined();
+    expect(result.user).toBeDefined();
   });
 
-  it('should call Supabase signOut when signing out', async () => {
-    const result = await service.signOut();
-
-    expect(result).toBeDefined();
+  it('should sign out successfully', async () => {
+    await expect(service.signOut()).resolves.toBeUndefined();
   });
 });
