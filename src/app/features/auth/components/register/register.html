@@ -7,33 +7,20 @@
         <label for="email" class="block text-sm font-medium mb-2">Email</label>
         <input type="email" id="email" [formField]="registerForm.email"
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tmdb-cyan" />
-        @if (registerForm.email().touched() && registerForm.email().invalid()) {
-        <span class="error" role="alert">
-          {{ registerForm.email().errors()[0].message }}
-        </span>
-        }
+        <app-field-error [field]="registerForm.email()" />
       </div>
 
       <div class="mb-6">
         <label for="password" class="block text-sm font-medium mb-2">Password</label>
         <input type="password" id="password" [formField]="registerForm.password"
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tmdb-cyan" />
-
-        @if (registerForm.password().touched() && registerForm.password().invalid()) {
-        <span class="error text-red-600 text-sm mt-1" role="alert">
-          {{ registerForm.password().errors()[0].message }}
-        </span>
-        }
+        <app-field-error [field]="registerForm.password()" />
       </div>
       <div class="mb-6">
         <label for="confirmPassword" class="block text-sm font-medium mb-2">Confirm Password</label>
         <input type="password" id="confirmPassword" [formField]="registerForm.confirmPassword"
           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-tmdb-cyan" />
-        @if (registerForm.confirmPassword().touched() && registerForm.confirmPassword().invalid()) {
-        <span class="error text-red-600 text-sm mt-1" role="alert">
-          {{ registerForm.confirmPassword().errors()[0].message }}
-        </span>
-        }
+        <app-field-error [field]="registerForm.confirmPassword()" />
       </div>
 
       @if (authError()) {

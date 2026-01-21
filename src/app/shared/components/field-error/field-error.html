@@ -1,0 +1,5 @@
+@if (field().touched() && field().invalid()) {
+<span class="error text-red-600 text-sm mt-1 block" role="alert">
+  {{ field().errors()[0].message }}
+</span>
+}

@@ -3,7 +3,7 @@ import { MovieList } from './movie-list';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { Movies } from '../../services/movies';
-import { TmdbMovieResponse } from '../../../../interfaces/movie';
+import { TmdbMovieResponse } from '../../interfaces/movie';
 import { RouterLink } from '@angular/router';
 import { By } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';

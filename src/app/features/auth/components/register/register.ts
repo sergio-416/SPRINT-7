@@ -4,10 +4,11 @@ import { form, FormField, minLength, required } from '@angular/forms/signals';
 import { Auth } from '../../services/auth';
 import { enhancedEmail, passwordsMatch } from '../../validators/custom-validators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FieldError } from '../../../../shared/components/field-error/field-error';
 
 @Component({
   selector: 'app-register',
-  imports: [FormField],
+  imports: [FormField, FieldError],
   templateUrl: './register.html',
   styleUrl: './register.css',
   changeDetection: ChangeDetectionStrategy.OnPush,

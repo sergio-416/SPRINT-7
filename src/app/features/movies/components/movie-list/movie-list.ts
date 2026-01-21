@@ -1,30 +1,26 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { Movies } from '../../services/movies';
-import { RouterLink } from '@angular/router';
-import { TmdbMovie } from '../../../../interfaces/movie';
+import { TmdbMovie } from '../../interfaces/movie';
+import { MovieCard } from '../movie-card/movie-card';
 
 @Component({
   selector: 'app-movie-list',
-  imports: [RouterLink],
+  imports: [MovieCard],
   templateUrl: './movie-list.html',
   styleUrl: './movie-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieList {
-  //* Services (injected dependencies)
   readonly #moviesService = inject(Movies);
 
-  //* State signals (private)
   readonly #movies = signal<TmdbMovie[]>([]);
   readonly #currentPage = signal(1);
   readonly #totalPages = signal(0);
 
-  //* Public readonly accessors
   readonly movies = this.#movies.asReadonly();
   readonly currentPage = this.#currentPage.asReadonly();
   readonly totalPages = this.#totalPages.asReadonly();
 
-  //* Initialization
   constructor() {
     this.#moviesService.getMovies().subscribe((response) => {
       this.#movies.set(response.results);

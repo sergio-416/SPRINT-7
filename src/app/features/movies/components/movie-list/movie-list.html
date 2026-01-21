@@ -1,23 +1,8 @@
 <main class="container mx-auto p-4">
   <h1 class="sr-only">Popular Movies</h1>
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    @for (movie of movies(); track movie.id){
-    <a [routerLink]="['/movie', movie.id]" class="block transition hover:shadow-card-hover">
-      <div class="relative">
-        <img [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path" [alt]="movie.title"
-          class="w-full aspect-2/3 object-cover rounded-[--radius-card]" />
-
-        <div
-          class="absolute bottom-2 left-2 bg-tmdb-navy text-white rounded-full w-12 h-12 flex items-center justify-center font-bold text-sm shadow-card">
-          {{ (movie.vote_average * 10).toFixed(0) }}%
-        </div>
-      </div>
-
-      <div class="mt-4">
-        <h3 class="font-bold text-base">{{ movie.title }}</h3>
-        <p class="text-gray-600 text-sm mt-1">{{ movie.release_date }}</p>
-      </div>
-    </a>
+    @for (movie of movies(); track movie.id) {
+    <app-movie-card [movie]="movie" />
     }
   </div>
 

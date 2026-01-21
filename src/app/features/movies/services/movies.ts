@@ -2,8 +2,9 @@ import { environment } from '../../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TmdbMovieResponse } from '../../../interfaces/movie';
-import { MovieDetails } from '../../../interfaces/movie-details';
+import { TmdbMovieResponse } from '../interfaces/movie';
+import { MovieDetails } from '../interfaces/movie-details';
+import { TMDB_API } from '../../../shared/constants/tmdb';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class Movies {
 
   #getMoviesFromPage(page: number): Observable<TmdbMovieResponse> {
     return this.#http.get<TmdbMovieResponse>(
-      `https://api.themoviedb.org/3/discover/movie?page=${page}`,
+      `${TMDB_API.BASE_URL}/discover/movie?page=${page}`,
       { headers: { Authorization: `Bearer ${environment.tmdbToken}` } }
     );
   }
@@ -27,7 +28,7 @@ export class Movies {
   }
 
   getMovieDetails(id: number): Observable<MovieDetails> {
-    return this.#http.get<MovieDetails>(`https://api.themoviedb.org/3/movie/${id}`, {
+    return this.#http.get<MovieDetails>(`${TMDB_API.BASE_URL}/movie/${id}`, {
       headers: { Authorization: `Bearer ${environment.tmdbToken}` },
     });
   }
