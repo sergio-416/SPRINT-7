@@ -8,7 +8,6 @@ import { toSignal } from '@angular/core/rxjs-interop';
   selector: 'app-root',
   imports: [RouterOutlet, Header],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
 

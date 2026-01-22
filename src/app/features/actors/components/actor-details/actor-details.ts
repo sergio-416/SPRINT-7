@@ -5,11 +5,11 @@ import { Actors } from '../../services/actors';
 import { MovieCard } from '../../../movies/components/movie-card/movie-card';
 import { TmdbImagePipe } from '../../../../shared/pipes/tmdb-image/tmdb-image-pipe';
 import { TMDB_IMAGE_SIZES } from '../../../../shared/constants/tmdb';
+
 @Component({
   selector: 'app-actor-details',
   imports: [MovieCard, TmdbImagePipe],
   templateUrl: './actor-details.html',
-  styleUrl: './actor-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ActorDetails {

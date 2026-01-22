@@ -5,6 +5,7 @@ import { environment } from '../../../../environments/environment.development';
 import { TMDB_API } from '../../../shared/constants/tmdb';
 import { Actor } from '../interfaces/actor';
 import { ActorMovieCredits } from '../interfaces/actor-movie-credits';
+
 @Injectable({
   providedIn: 'root',
 })

@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { Actors } from './actors';
+
 describe('Actors', () => {
   let service: Actors;
   let httpTestingController: HttpTestingController;
@@ -12,6 +13,7 @@ describe('Actors', () => {
     service = TestBed.inject(Actors);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
+
   it('should fetch actor details from TMDB API', () => {
     const mockActor = {
       id: 123,
@@ -30,6 +32,7 @@ describe('Actors', () => {
     expect(req.request.method).toBe('GET');
     req.flush(mockActor);
   });
+
   it('should fetch actor movie credits from TMDB API', () => {
     const mockCredits = {
       id: 123,

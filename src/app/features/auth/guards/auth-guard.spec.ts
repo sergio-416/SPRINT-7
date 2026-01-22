@@ -4,6 +4,7 @@ import { signal, WritableSignal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { authGuard } from './auth-guard';
 import { Auth } from '../services/auth';
+
 describe('authGuard', () => {
   let mockAuthService: {
     currentUser: WritableSignal<any>;
@@ -20,12 +21,14 @@ describe('authGuard', () => {
       providers: [{ provide: Auth, useValue: mockAuthService }],
     });
   });
+
   it('should allow access when user is authenticated', async () => {
     mockAuthService.currentUser.set({ email: 'test@example.com' } as any);
     mockAuthService.authInitialized.set(true);
     const result = await firstValueFrom(executeGuard({} as any, { url: '/movies' } as any) as any);
     expect(result).toBe(true);
   });
+
   it('should redirect to login when user is not authenticated', async () => {
     mockAuthService.currentUser.set(null);
     mockAuthService.authInitialized.set(true);
@@ -33,6 +36,7 @@ describe('authGuard', () => {
     expect(result).not.toBe(true);
     expect(result).toBeInstanceOf(UrlTree);
   });
+
   it('should preserve returnUrl in query params when redirecting', async () => {
     mockAuthService.currentUser.set(null);
     mockAuthService.authInitialized.set(true);

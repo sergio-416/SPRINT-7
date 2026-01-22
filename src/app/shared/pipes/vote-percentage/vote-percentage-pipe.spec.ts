@@ -9,24 +9,24 @@ describe('VotePercentagePipe', () => {
 
   it('should convert vote average to percentage string', () => {
     const result = pipe.transform(7.5);
-    
+
     expect(result).toBe('75%');
   });
 
   it('should round to nearest integer', () => {
     expect(pipe.transform(8.47)).toBe('85%');
-    expect(pipe.transform(8.45)).toBe('85%'); // JavaScript Math.round() rounds .5 up
+    expect(pipe.transform(8.45)).toBe('85%');
   });
 
   it('should handle perfect scores', () => {
     const result = pipe.transform(10);
-    
+
     expect(result).toBe('100%');
   });
 
   it('should handle zero scores', () => {
     const result = pipe.transform(0);
-    
+
     expect(result).toBe('0%');
   });
 

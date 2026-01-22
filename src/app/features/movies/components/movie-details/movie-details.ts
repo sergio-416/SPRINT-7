@@ -11,7 +11,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-movie-details',
   imports: [TmdbImagePipe, VotePercentagePipe, RouterLink],
   templateUrl: './movie-details.html',
-  styleUrl: './movie-details.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieDetails {

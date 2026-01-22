@@ -10,7 +10,6 @@ import { FieldError } from '../../../../shared/components/field-error/field-erro
   selector: 'app-login',
   imports: [FormField, FieldError],
   templateUrl: './login.html',
-  styleUrl: './login.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {

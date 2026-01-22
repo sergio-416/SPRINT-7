@@ -5,7 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-landing',
   imports: [RouterLink],
   templateUrl: './landing.html',
-  styleUrl: './landing.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Landing {

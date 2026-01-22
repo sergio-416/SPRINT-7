@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { provideHttpClient } from '@angular/common/http';
 import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 import { ActorDetails } from './actor-details';
+
 const mockActivatedRoute = {
   snapshot: {
     params: {
@@ -25,6 +26,7 @@ describe('ActorDetails', () => {
     fixture = TestBed.createComponent(ActorDetails);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
+
   it('should display actor name and biography', () => {
     const mockActor = {
       id: 123,
@@ -44,6 +46,7 @@ describe('ActorDetails', () => {
     expect(compiled.textContent).toContain('Test Actor');
     expect(compiled.textContent).toContain('A talented actor');
   });
+  
   it('should display filmography using MovieCard components', () => {
     const mockActor = {
       id: 123,

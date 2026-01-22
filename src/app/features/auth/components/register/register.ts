@@ -10,7 +10,6 @@ import { FieldError } from '../../../../shared/components/field-error/field-erro
   selector: 'app-register',
   imports: [FormField, FieldError],
   templateUrl: './register.html',
-  styleUrl: './register.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Register {

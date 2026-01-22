@@ -7,6 +7,7 @@ import {
   onAuthStateChanged,
   User as FirebaseUser,
 } from 'firebase/auth';
+
 @Injectable({
   providedIn: 'root',
 })

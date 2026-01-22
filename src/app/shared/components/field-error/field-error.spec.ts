@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FieldError } from './field-error';
 
 describe('FieldError', () => {

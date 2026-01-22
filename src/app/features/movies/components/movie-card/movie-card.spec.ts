@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-
 import { MovieCard } from './movie-card';
 import { TmdbMovie } from '../../interfaces/movie';
 

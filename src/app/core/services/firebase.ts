@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../../../environments/environment.development';
 import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth';
+
 @Injectable({
   providedIn: 'root',
 })

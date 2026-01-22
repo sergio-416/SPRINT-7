@@ -7,7 +7,6 @@ import { MovieCard } from '../movie-card/movie-card';
   selector: 'app-movie-list',
   imports: [MovieCard],
   templateUrl: './movie-list.html',
-  styleUrl: './movie-list.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MovieList {
